@@ -43,16 +43,27 @@ int main(){
     printf("Nulos: %d\n",n_votos_nulos);
     
     int indice_vencedor = 0;
+    //indicador se houve empate (1) ou não (0)
+    int empate = 0;
+
     for(int i=1; i<n_candidatos; i++){
         if(votos_candidatos[i] 
             > votos_candidatos[indice_vencedor]){
                 indice_vencedor = i;
+                empate = 0;
+        }else if(votos_candidatos[i] 
+            == votos_candidatos[indice_vencedor]){
+                empate = 1;
         }
     }
 
-    printf("O vencedor é o candidato %d com %d votos\n",
+    if(empate == 1){
+        printf("Empate!");
+    }else{
+
+        printf("O vencedor é o candidato %d com %d votos\n",
             indice_vencedor+1, votos_candidatos[indice_vencedor]);
 
-
+    }
     return 0;
 }
