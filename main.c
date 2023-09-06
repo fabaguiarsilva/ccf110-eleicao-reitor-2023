@@ -1,102 +1,47 @@
 #include <stdio.h>
 
 int main(){
-    int n_votos_candidato1, 
-        n_votos_candidato2,
-        n_votos_candidato3;
+    int n_candidatos = 3;
+    int n_eleitores = 5;
 
-    int voto_eleitor1,
-        voto_eleitor2,
-        voto_eleitor3,
-        voto_eleitor4,
-        voto_eleitor5;
+    int votos_candidatos[n_candidatos];
+    int n_votos_nulos;
+    int voto;
 
 
     //inicializa votação
-    n_votos_candidato1 = 0;
-    n_votos_candidato2 = 0;
-    n_votos_candidato3 = 0;
+    for(int i=0; i<n_candidatos; i++){
+        votos_candidatos[i] = 0; 
+    }
+    n_votos_nulos = 0;
 
     //Leitura dos votos
-    printf("Voto do eleitor 1: ");
-    scanf("%d",&voto_eleitor1);
+    for(int i=1; i<=n_eleitores; i++){
+        printf("Voto do eleitor %d: ",i);
+        scanf("%d",&voto);
 
-    printf("Voto do eleitor 2: ");
-    scanf("%d",&voto_eleitor2);
-
-    printf("Voto do eleitor 3: ");
-    scanf("%d",&voto_eleitor3);
-
-    printf("Voto do eleitor 4: ");
-    scanf("%d",&voto_eleitor4);
-
-    printf("Voto do eleitor 5: ");
-    scanf("%d",&voto_eleitor5);
-
-
-    printf("Votos: \n");
-    printf("Eleitor 1: %d\n",voto_eleitor1);
-    printf("Eleitor 2: %d\n",voto_eleitor2);
-    printf("Eleitor 3: %d\n",voto_eleitor3);
-    printf("Eleitor 4: %d\n",voto_eleitor4);
-    printf("Eleitor 5: %d\n",voto_eleitor5);
-
-    //Contagem dos votos
-    if(voto_eleitor1 == 1) {
-        n_votos_candidato1++;
-    }else if(voto_eleitor1 == 2){
-        n_votos_candidato2++;
-    }else if(voto_eleitor1 == 3){
-        n_votos_candidato3++;
-    }else{
-        printf("Eleitor 1 votou nulo");
-    }
-    
-    if(voto_eleitor2 == 1) {
-        n_votos_candidato1++;
-    }else if(voto_eleitor2 == 2){
-        n_votos_candidato2++;
-    }else if(voto_eleitor2 == 3){
-        n_votos_candidato3++;
-    }else{
-        printf("Eleitor 2 votou nulo");
-    }
-
-    if(voto_eleitor3 == 1) {
-        n_votos_candidato1++;
-    }else if(voto_eleitor3 == 2){
-        n_votos_candidato2++;
-    }else if(voto_eleitor3 == 3){
-        n_votos_candidato3++;
-    }else{
-        printf("Eleitor 3 votou nulo");
-    }   
-
-    if(voto_eleitor4 == 1) {
-        n_votos_candidato1++;
-    }else if(voto_eleitor4 == 2){
-        n_votos_candidato2++;
-    }else if(voto_eleitor4 == 3){
-        n_votos_candidato3++;
-    }else{
-        printf("Eleitor 4 votou nulo");
-    }
-
-    if(voto_eleitor5 == 1) {
-        n_votos_candidato1++;
-    }else if(voto_eleitor5 == 2){
-        n_votos_candidato2++;
-    }else if(voto_eleitor5 == 3){
-        n_votos_candidato3++;
-    }else{
-        printf("Eleitor 5 votou nulo");
+        switch(voto){
+            case 1:
+                votos_candidatos[0]++;
+                break;
+            case 2:
+                votos_candidatos[1]++;
+                break;
+            case 3:
+                votos_candidatos[2]++;
+                break;
+            default:
+                n_votos_nulos++;
+        }
     }
 
     //Apuração
     printf("Votos por candidato:\n");
-    printf("Candidato 1: %d\n",n_votos_candidato1);
-    printf("Candidato 2: %d\n",n_votos_candidato2);
-    printf("Candidato 3: %d\n",n_votos_candidato3);
+    printf("Candidato 1: %d\n",votos_candidatos[0]);
+    printf("Candidato 2: %d\n",votos_candidatos[1]);
+    printf("Candidato 3: %d\n",votos_candidatos[2]);
+    printf("Nulos: %d\n",n_votos_nulos);
+    
 
     return 0;
 }
