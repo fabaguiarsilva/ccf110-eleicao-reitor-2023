@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(){
-    int n_candidatos = 3;
+    int n_candidatos = 10;
     int n_eleitores = 5;
 
     int votos_candidatos[n_candidatos];
@@ -20,18 +20,10 @@ int main(){
         printf("Voto do eleitor %d: ",i);
         scanf("%d",&voto);
 
-        switch(voto){
-            case 1:
-                votos_candidatos[0]++;
-                break;
-            case 2:
-                votos_candidatos[1]++;
-                break;
-            case 3:
-                votos_candidatos[2]++;
-                break;
-            default:
-                n_votos_nulos++;
+        if(voto > 0 & voto <= n_candidatos){
+            votos_candidatos[voto - 1]++;
+        }else{
+            n_votos_nulos++;
         }
     }
 
@@ -60,10 +52,8 @@ int main(){
     if(empate == 1){
         printf("Empate!");
     }else{
-
         printf("O vencedor é o candidato %d com %d votos\n",
             indice_vencedor+1, votos_candidatos[indice_vencedor]);
-
     }
     return 0;
 }
