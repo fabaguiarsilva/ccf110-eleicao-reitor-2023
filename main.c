@@ -1,13 +1,20 @@
 #include <stdio.h>
 
 int main(){
-    int n_candidatos = 10;
+    int n_candidatos = 3;
     int n_eleitores = 5;
+
+    int numeros_candidatos[n_candidatos];
 
     int votos_candidatos[n_candidatos];
     int n_votos_nulos;
     int voto;
 
+    //ler numeros dos candidatos
+    for(int i=0; i<n_candidatos; i++){
+        printf("Digite o numero do candidato %d: ",i+1);
+        scanf("%d",&numeros_candidatos[i]);
+    }
 
     //inicializa votação
     for(int i=0; i<n_candidatos; i++){
@@ -15,16 +22,28 @@ int main(){
     }
     n_votos_nulos = 0;
 
+    printf("Candidatos:\n");
+    for(int i=0; i<n_candidatos; i++){
+        printf("Candidato %d: %d\n",(i+1),numeros_candidatos[i]);
+    }
+
     //Leitura dos votos
     for(int i=1; i<=n_eleitores; i++){
         printf("Voto do eleitor %d: ",i);
         scanf("%d",&voto);
 
-        if(voto > 0 & voto <= n_candidatos){
-            votos_candidatos[voto - 1]++;
-        }else{
-            n_votos_nulos++;
+        int flag_nulo = 1;
+        for(int i=0; i<n_candidatos; i++){
+            if(voto == numeros_candidatos[i]){
+                votos_candidatos[i]++;
+                flag_nulo = 0;
+            }
         }
+
+        if(flag_nulo == 1){
+               n_votos_nulos++;
+        }
+        
     }
 
     //Impressão dos
