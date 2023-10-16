@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <string.h>
+
+#define FLAG_TESTE 0
 
 int main(){
-    int n_candidatos = 3;
+    int n_candidatos = 13;
     int n_eleitores = 5;
 
     int numeros_candidatos[n_candidatos];
@@ -14,21 +17,26 @@ int main(){
 
     //ler numeros dos candidatos
     for(int i=0; i<n_candidatos; i++){
-        printf("Digite o numero do candidato %d: ",i+1);
-        scanf("%d",&numeros_candidatos[i]);
 
-        //lê o \n do scanf anterior e descarta
-        getchar();
-        printf("Digite o nome do candidato %d: ",i+1);
-        //fflush(stdin);
+        if(FLAG_TESTE == 0){
+            printf("Digite o numero do candidato %d: ",i+1);
+            scanf("%d",&numeros_candidatos[i]);
+
+            //lê o \n do scanf anterior e descarta
+            getchar();
+            printf("Digite o nome do candidato %d: ",i+1);
+            //fflush(stdin);
         
-        gets(nomes_candidatos[i]);
-        //scanf("%s",&nomes_candidatos[i]);
-        printf("Nome: %s\n",nomes_candidatos[i]);
-
+            gets(nomes_candidatos[i]);
+            //scanf("%s",&nomes_candidatos[i]);
+            
+        }else{
+            numeros_candidatos[i] = i+1;
+            char num[3];
+            sprintf(num, "%d", numeros_candidatos[i]);
+            strcat(strcpy(nomes_candidatos[i], "Candidato "), num);
+        }
     }
-
-
 
     //inicializa votação
     for(int i=0; i<n_candidatos; i++){
