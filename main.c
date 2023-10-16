@@ -1,11 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 
-#define FLAG_TESTE 0
+#define FLAG_TESTE 1
 
 int main(){
-    int n_candidatos = 13;
-    int n_eleitores = 5;
+    
+    //define a quantidade de candidatos e eleitores
+    int n_candidatos;
+    int n_eleitores;
+
+    if(FLAG_TESTE == 0){
+        printf("Digite o número de candidatos: ");
+        scanf("%d",&n_candidatos);
+
+        printf("Digite o número de eleitores: ");
+        scanf("%d",&n_eleitores);
+    }else{
+        n_candidatos = 3;
+        n_eleitores = 5;
+    }
+
 
     int numeros_candidatos[n_candidatos];
 
