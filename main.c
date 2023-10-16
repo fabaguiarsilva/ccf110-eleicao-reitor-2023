@@ -10,11 +10,25 @@ int main(){
     int n_votos_nulos;
     int voto;
 
+    char nomes_candidatos[n_candidatos][30];
+
     //ler numeros dos candidatos
     for(int i=0; i<n_candidatos; i++){
         printf("Digite o numero do candidato %d: ",i+1);
         scanf("%d",&numeros_candidatos[i]);
+
+        //lê o \n do scanf anterior e descarta
+        getchar();
+        printf("Digite o nome do candidato %d: ",i+1);
+        //fflush(stdin);
+        
+        gets(nomes_candidatos[i]);
+        //scanf("%s",&nomes_candidatos[i]);
+        printf("Nome: %s\n",nomes_candidatos[i]);
+
     }
+
+
 
     //inicializa votação
     for(int i=0; i<n_candidatos; i++){
@@ -24,7 +38,9 @@ int main(){
 
     printf("Candidatos:\n");
     for(int i=0; i<n_candidatos; i++){
-        printf("Candidato %d: %d\n",(i+1),numeros_candidatos[i]);
+        printf("Candidato %d: %s\n",
+                numeros_candidatos[i],
+                nomes_candidatos[i]);
     }
 
     //Leitura dos votos
@@ -72,7 +88,8 @@ int main(){
     if(empate == 1){
         printf("Empate!");
     }else{
-        printf("O vencedor é o candidato %d com %d votos\n",
+        printf("O vencedor é o candidato %s (%d) com %d votos\n",
+            nomes_candidatos[indice_vencedor],
             numeros_candidatos[indice_vencedor], 
             votos_candidatos[indice_vencedor]);
     }
