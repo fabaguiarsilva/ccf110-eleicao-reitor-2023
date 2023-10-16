@@ -41,18 +41,19 @@ int main(){
         }
 
         if(flag_nulo == 1){
-               n_votos_nulos++;
+            n_votos_nulos++;
         }
-        
     }
 
-    //Impressão dos
+    //Impressão dos votos
     printf("Votos por candidato:\n");
-    printf("Candidato 1: %d\n",votos_candidatos[0]);
-    printf("Candidato 2: %d\n",votos_candidatos[1]);
-    printf("Candidato 3: %d\n",votos_candidatos[2]);
+    for(int i=0; i<n_candidatos; i++){
+        printf("Candidato %d tem %d votos\n",numeros_candidatos[i],votos_candidatos[i]);
+    }
     printf("Nulos: %d\n",n_votos_nulos);
     
+
+    //apuração da votação
     int indice_vencedor = 0;
     //indicador se houve empate (1) ou não (0)
     int empate = 0;
@@ -72,7 +73,8 @@ int main(){
         printf("Empate!");
     }else{
         printf("O vencedor é o candidato %d com %d votos\n",
-            indice_vencedor+1, votos_candidatos[indice_vencedor]);
+            numeros_candidatos[indice_vencedor], 
+            votos_candidatos[indice_vencedor]);
     }
     return 0;
 }
