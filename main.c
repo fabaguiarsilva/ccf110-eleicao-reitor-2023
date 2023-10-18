@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define FLAG_TESTE 1
 
@@ -45,7 +46,8 @@ int main(){
             //scanf("%s",&nomes_candidatos[i]);
             
         }else{
-            numeros_candidatos[i] = i+1;
+            //numeros_candidatos[i] = i+1;
+            numeros_candidatos[i] = rand() % 100 + 1;
             char num[3];
             sprintf(num, "%d", numeros_candidatos[i]);
             strcat(strcpy(nomes_candidatos[i], "Candidato "), num);
