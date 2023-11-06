@@ -1,14 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "candidato.h"
 
 #define FLAG_TESTE 1
-
-typedef struct {
-    int numero;
-    int n_votos;
-    char nome[30];
-}Candidato;
 
 int main(){
     
