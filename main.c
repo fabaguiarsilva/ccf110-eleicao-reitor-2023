@@ -76,7 +76,10 @@ int main(){
             char num[3];
             sprintf(num, "%d", eleitores[i].matricula);
             strcat(strcpy(eleitores[i].nome, "Eleitor "), num);
-        }        
+        }    
+
+        eleitores[i].ja_votou = 0;
+
     }
 
 
@@ -108,16 +111,23 @@ int main(){
         scanf("%d",&matricula);
 
         int matricula_valida = 0;
+        int indice_eleitor_valido;
         for(int j=0; j<n_eleitores; j++){
             if(matricula == 
                 eleitores[j].matricula){
                     matricula_valida = 1;
+                    indice_eleitor_valido = j;
                     break;
             }
         }
         
         if(matricula_valida == 0){
             printf("Matricula inválida. Proximo eleitor...\n");
+            continue;
+        }
+
+        if(eleitores[indice_eleitor_valido].ja_votou == 1){
+            printf("Eleitor já votou!\n");
             continue;
         }
         
@@ -135,6 +145,8 @@ int main(){
         if(flag_nulo == 1){
             n_votos_nulos++;
         }
+        eleitores[indice_eleitor_valido].ja_votou = 1;
+
     }
 
     //Impressão dos votos
