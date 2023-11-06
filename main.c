@@ -4,6 +4,12 @@
 
 #define FLAG_TESTE 1
 
+typedef struct {
+    int numero;
+    int n_votos;
+    char nome[30];
+}Candidato;
+
 int main(){
     
     //define a quantidade de candidatos e eleitores
@@ -21,50 +27,49 @@ int main(){
         n_eleitores = 5;
     }
 
+    //int numeros_candidatos[n_candidatos];
+    //int votos_candidatos[n_candidatos];
+    //char nomes_candidatos[n_candidatos][30];
+    Candidato candidatos[n_candidatos];
 
-    int numeros_candidatos[n_candidatos];
-
-    int votos_candidatos[n_candidatos];
     int n_votos_nulos;
     int voto;
-
-    char nomes_candidatos[n_candidatos][30];
 
     //ler numeros dos candidatos
     for(int i=0; i<n_candidatos; i++){
 
         if(FLAG_TESTE == 0){
             printf("Digite o numero do candidato %d: ",i+1);
-            scanf("%d",&numeros_candidatos[i]);
+            scanf("%d",&candidatos[i].numero);
 
             //lê o \n do scanf anterior e descarta
             getchar();
             printf("Digite o nome do candidato %d: ",i+1);
             //fflush(stdin);
         
-            gets(nomes_candidatos[i]);
+            gets(candidatos[i].nome);
             //scanf("%s",&nomes_candidatos[i]);
             
         }else{
             //numeros_candidatos[i] = i+1;
-            numeros_candidatos[i] = rand() % 100 + 1;
+            candidatos[i].numero = rand() % 100 + 1;
             char num[3];
-            sprintf(num, "%d", numeros_candidatos[i]);
-            strcat(strcpy(nomes_candidatos[i], "Candidato "), num);
+            sprintf(num, "%d", candidatos[i].numero);
+            strcat(strcpy(candidatos[i].nome, "Candidato "), num);
         }
     }
 
     //inicializa votação
     for(int i=0; i<n_candidatos; i++){
-        votos_candidatos[i] = 0; 
+        candidatos[i].n_votos = 0; 
     }
     n_votos_nulos = 0;
 
     printf("Candidatos:\n");
     for(int i=0; i<n_candidatos; i++){
         printf("Candidato %d: %s\n",
-                numeros_candidatos[i],
-                nomes_candidatos[i]);
+                candidatos[i].numero,
+                candidatos[i].nome);
     }
 
     //Leitura dos votos
@@ -74,8 +79,8 @@ int main(){
 
         int flag_nulo = 1;
         for(int i=0; i<n_candidatos; i++){
-            if(voto == numeros_candidatos[i]){
-                votos_candidatos[i]++;
+            if(voto == candidatos[i].numero){
+                candidatos[i].n_votos++;
                 flag_nulo = 0;
             }
         }
@@ -88,7 +93,8 @@ int main(){
     //Impressão dos votos
     printf("Votos por candidato:\n");
     for(int i=0; i<n_candidatos; i++){
-        printf("Candidato %d tem %d votos\n",numeros_candidatos[i],votos_candidatos[i]);
+        printf("Candidato %d tem %d votos\n",
+            candidatos[i].numero, candidatos[i].n_votos);
     }
     printf("Nulos: %d\n",n_votos_nulos);
     
@@ -99,12 +105,12 @@ int main(){
     int empate = 0;
 
     for(int i=1; i<n_candidatos; i++){
-        if(votos_candidatos[i] 
-            > votos_candidatos[indice_vencedor]){
+        if(candidatos[i].n_votos 
+            > candidatos[indice_vencedor].n_votos){
                 indice_vencedor = i;
                 empate = 0;
-        }else if(votos_candidatos[i] 
-            == votos_candidatos[indice_vencedor]){
+        }else if(candidatos[i].n_votos 
+            == candidatos[indice_vencedor].n_votos){
                 empate = 1;
         }
     }
@@ -113,9 +119,9 @@ int main(){
         printf("Empate!");
     }else{
         printf("O vencedor é o candidato %s (%d) com %d votos\n",
-            nomes_candidatos[indice_vencedor],
-            numeros_candidatos[indice_vencedor], 
-            votos_candidatos[indice_vencedor]);
+            candidatos[indice_vencedor].nome,
+            candidatos[indice_vencedor].numero, 
+            candidatos[indice_vencedor].n_votos);
     }
     return 0;
 }
