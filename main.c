@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "candidato.h"
+#include "eleitor.h"
 
 #define FLAG_TESTE 1
 
@@ -26,6 +27,8 @@ int main(){
     //int votos_candidatos[n_candidatos];
     //char nomes_candidatos[n_candidatos][30];
     Candidato candidatos[n_candidatos];
+
+    Eleitor eleitores[n_eleitores];
 
     int n_votos_nulos;
     int voto;
@@ -54,6 +57,29 @@ int main(){
         }
     }
 
+    for(int i=0; i<n_eleitores; i++){
+        if(FLAG_TESTE == 0){
+            printf("Digite a matricula do eleitor %d: ",i+1);
+            scanf("%d",&eleitores[i].matricula);
+
+            //lê o \n do scanf anterior e descarta
+            getchar();
+            printf("Digite o nome do eleitor %d: ",i+1);
+            //fflush(stdin);
+        
+            gets(eleitores[i].nome);
+            //scanf("%s",&nomes_candidatos[i]);
+            
+        }else{
+            //numeros_candidatos[i] = i+1;
+            eleitores[i].matricula = rand() % 1000 + 1;
+            char num[3];
+            sprintf(num, "%d", eleitores[i].matricula);
+            strcat(strcpy(eleitores[i].nome, "Eleitor "), num);
+        }        
+    }
+
+
     //inicializa votação
     for(int i=0; i<n_candidatos; i++){
         candidatos[i].n_votos = 0; 
@@ -67,9 +93,35 @@ int main(){
                 candidatos[i].nome);
     }
 
+    printf("Eleitores:\n");
+    for(int i=0; i<n_eleitores; i++){
+        printf("Eleitor %d: %s\n",
+                eleitores[i].matricula,
+                eleitores[i].nome);
+    }
+
     //Leitura dos votos
     for(int i=1; i<=n_eleitores; i++){
-        printf("Voto do eleitor %d: ",i);
+        
+        int matricula;
+        printf("Digite a matricula: ");
+        scanf("%d",&matricula);
+
+        int matricula_valida = 0;
+        for(int j=0; j<n_eleitores; j++){
+            if(matricula == 
+                eleitores[j].matricula){
+                    matricula_valida = 1;
+                    break;
+            }
+        }
+        
+        if(matricula_valida == 0){
+            printf("Matricula inválida. Proximo eleitor...\n");
+            continue;
+        }
+        
+        printf("Voto do eleitor %d: ",matricula);
         scanf("%d",&voto);
 
         int flag_nulo = 1;
