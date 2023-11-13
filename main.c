@@ -4,7 +4,37 @@
 #include "candidato.h"
 #include "eleitor.h"
 
-#define FLAG_TESTE 1
+#define FLAG_TESTE 0
+
+//passagem de parâmetro por referência
+void lerNumeroCandidatos(int *n_candidatos){
+    if(FLAG_TESTE == 0){
+        printf("Digite o número de candidatos: ");
+        scanf("%d",n_candidatos);
+    }else{
+        *n_candidatos = 3;
+    }
+}
+
+//retorno do valor lido
+int lerNumeroEleitores(){
+    int n_eleitores;
+    if(FLAG_TESTE == 0){
+        printf("Digite o número de eleitores: ");
+        scanf("%d",&n_eleitores);
+    }else{
+        n_eleitores = 5;
+    }
+
+    return n_eleitores;
+
+}
+//void zeraVotos(int n, Candidato candidatos[]);
+//void lerDadosCandidatos(int nCandidatos, Candidato candidatos[]);
+//void lerVotos(int nCandidatos, Candidato candidatos[], int *nNulos);
+//void apuracao(int nCandidatos, Candidato candidatos[], int *iVencedor,int *isEmpate);
+//void mostrarResultado(int votosNulos, int empate, Candidato vencedor);
+
 
 int main(){
     
@@ -12,20 +42,12 @@ int main(){
     int n_candidatos;
     int n_eleitores;
 
-    if(FLAG_TESTE == 0){
-        printf("Digite o número de candidatos: ");
-        scanf("%d",&n_candidatos);
+    lerNumeroCandidatos(&n_candidatos);
+    printf("Numero Candidatos: %d\n",n_candidatos);
 
-        printf("Digite o número de eleitores: ");
-        scanf("%d",&n_eleitores);
-    }else{
-        n_candidatos = 3;
-        n_eleitores = 5;
-    }
+    n_eleitores = lerNumeroEleitores();
+    printf("Numero de eleitores: %d\n",n_eleitores);
 
-    //int numeros_candidatos[n_candidatos];
-    //int votos_candidatos[n_candidatos];
-    //char nomes_candidatos[n_candidatos][30];
     Candidato candidatos[n_candidatos];
 
     Eleitor eleitores[n_eleitores];
