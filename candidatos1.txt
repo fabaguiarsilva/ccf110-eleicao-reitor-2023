@@ -1,0 +1,3 @@
+Nome Candidato 1;111;
+Nome Candidato 2;222;
+Nome Candidato 3;333;

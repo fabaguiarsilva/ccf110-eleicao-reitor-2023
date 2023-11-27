@@ -12,7 +12,7 @@ void lerNumeroCandidatos(int *n_candidatos){
         printf("Digite o número de candidatos: ");
         scanf("%d",n_candidatos);
     }else{
-        *n_candidatos = 3;
+        *n_candidatos = 5;
     }
 }
 
@@ -209,10 +209,83 @@ void salvaResultadoArquivo(int empate, Candidato vencedor){
             vencedor.nome,
             vencedor.numero, 
             vencedor.n_votos);
-    }    
+    }   
+
+    fclose(arquivoResultado); 
 }
 
 
+void lerDadosCandidatosArquivo1(int n_candidatos, Candidato candidatos[]){
+    
+    FILE *arquivoCandidatos;
+
+    if((arquivoCandidatos = fopen("candidatos1.txt","r")) == NULL){
+        printf("Erro ao abrir o arquivo!");
+        return;
+    }
+
+    int cont=0;
+    for(int i=0; i<n_candidatos; i++){
+        char c;
+        
+        printf("i=%d\n",i);
+        cont=0;
+        while(1){
+            c = fgetc(arquivoCandidatos);
+            if(c != ';'){
+                printf("C=%c\n",c);
+                candidatos[i].nome[cont] = c;
+                cont++;
+            }else{
+                break;
+            }
+        }
+
+        char num[5];
+        cont = 0;
+        while(1){
+            c = fgetc(arquivoCandidatos);
+            if(c != ';'){
+                num[cont] = c;
+                cont++;
+            }else{
+                candidatos[i].numero = atoi(num);
+                break;
+            }    
+        }
+        fgetc(arquivoCandidatos);
+
+        printf("Nome arquivo: %s (%d)\n",candidatos[i].nome,candidatos[i].numero);
+
+    }
+    fclose(arquivoCandidatos);
+}
+
+
+
+void lerDadosCandidatosArquivo(int n_candidatos, Candidato candidatos[]){
+    
+    FILE *arquivoCandidatos;
+
+    if((arquivoCandidatos = fopen("candidatos.txt","r")) == NULL){
+        printf("Erro ao abrir o arquivo!");
+        return;
+    }
+
+    char linha[30];
+    for(int i=0; i<n_candidatos; i++){
+        fgets(linha, 30, arquivoCandidatos);
+        //printf("LINHA: %s\n",linha);
+        strcpy(candidatos[i].nome, linha);
+
+        fgets(linha, 30, arquivoCandidatos);
+        candidatos[i].numero = atoi(linha);
+
+    }
+
+    fclose(arquivoCandidatos);
+
+}
 int main(){
     
     //define a quantidade de candidatos e eleitores
@@ -230,8 +303,8 @@ int main(){
 
 
     //ler dados dos candidatos
-    lerDadosCandidatos(n_candidatos, candidatos);
-    //lerDadosCandidatosArquivos(n_candidatos, candidatos);
+    //lerDadosCandidatos(n_candidatos, candidatos);
+    lerDadosCandidatosArquivo(n_candidatos, candidatos);
 
 
     //ler dados dos eleitores
