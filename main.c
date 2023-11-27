@@ -27,7 +27,6 @@ int lerNumeroEleitores(){
     }
 
     return n_eleitores;
-
 }
 
 
@@ -152,7 +151,7 @@ void lerVotos(int n_candidatos, Candidato candidatos[],
 
         int flag_nulo = is_voto_nulo(n_candidatos, candidatos, voto);
         if(flag_nulo == 1){
-            *n_nulos++;
+            (*n_nulos)++;
         }
         eleitores[indice_eleitor_valido].ja_votou = 1;
 
@@ -175,7 +174,7 @@ void apuracao(int n_candidatos, Candidato candidatos[],
     for(int i=1; i<n_candidatos; i++){
         if(candidatos[i].n_votos 
             > candidatos[*indice_vencedor].n_votos){
-                indice_vencedor = i;
+                *indice_vencedor = i;
                 *empate = 0;
         }else if(candidatos[i].n_votos 
             == candidatos[*indice_vencedor].n_votos){
@@ -188,6 +187,25 @@ void mostrarResultado(int empate, Candidato vencedor){
         printf("Empate!");
     }else{
         printf("O vencedor é o candidato %s (%d) com %d votos\n",
+            vencedor.nome,
+            vencedor.numero, 
+            vencedor.n_votos);
+    }    
+}
+
+void salvaResultadoArquivo(int empate, Candidato vencedor){
+
+    FILE *arquivoResultado;
+
+    if((arquivoResultado = fopen("resultado.txt","a")) == NULL){
+        printf("Erro ao abrir o arquivo!");
+        return;
+    }
+
+    if(empate == 1){
+        fprintf(arquivoResultado,"Empate!");
+    }else{
+        fprintf(arquivoResultado,"O vencedor é o candidato %s (%d) com %d votos\n",
             vencedor.nome,
             vencedor.numero, 
             vencedor.n_votos);
@@ -213,6 +231,8 @@ int main(){
 
     //ler dados dos candidatos
     lerDadosCandidatos(n_candidatos, candidatos);
+    //lerDadosCandidatosArquivos(n_candidatos, candidatos);
+
 
     //ler dados dos eleitores
     lerDadosEleitores(n_eleitores, eleitores);
@@ -239,6 +259,7 @@ int main(){
 
     apuracao(n_candidatos, candidatos, &indice_vencedor, &empate);
 
-    mostrarResultado(empate, candidatos[indice_vencedor]);
+    //mostrarResultado(empate, candidatos[indice_vencedor]);
+    salvaResultadoArquivo(empate, candidatos[indice_vencedor]);
     return 0;
 }
